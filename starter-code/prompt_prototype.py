@@ -130,6 +130,9 @@ def evaluate_prompt(user_input: str) -> str:
     so the lab stress tests can still run in GitHub Classroom.
     """
     _load_env_file()
+    if os.getenv("USE_LIVE_GEMINI") != "1":
+        return _local_boundary_response(user_input)
+
     api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
     if not api_key:
         return _local_boundary_response(user_input)
